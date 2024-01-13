@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PemilikModel;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PemilikController extends Controller
 {
@@ -46,22 +47,15 @@ class PemilikController extends Controller
     public function tambahAction(Request $request)
     {
 
-        $request->validate([
+        $dataValidate = $request->validate([
             'nama_pemilik' => 'required',
             'alamat' => 'required',
             'no_hp' => 'required ',
         ]);
 
-        $data = [
-            'nama_pemilik' => $request->nama_pemilik,
-            'alamat' => $request->alamat,
-            'no_hp' => $request->no_hp
-        ];
-
-        PemilikModel::create($data);
-        return redirect('/tambah-data-pemilik')->with([
-            'success' => 'data berhasil di tambahkan',
-        ]);
+        PemilikModel::create($dataValidate);
+        Alert::success('Success!', 'Data berhasil di tambahkan');
+        return redirect('/pemilik');
     }
 
     /**
@@ -72,13 +66,12 @@ class PemilikController extends Controller
      */
     public function edit($id)
     {
-        $data =
-            [
-                'pemilik' =>   PemilikModel::where('id_pemilik', $id)->first(),
-                'title' => 'Edit Data Pemilik'
-            ];
+        $pemilik =  PemilikModel::where('id_pemilik', $id)->first();
 
-        return view('pages.Pemilik.EditPemilik', $data);
+
+        return view('pages.Pemilik.EditPemilik', compact('pemilik'), [
+            'title' => 'Edit Data Pemilik'
+        ]);
     }
 
     /**
@@ -103,8 +96,8 @@ class PemilikController extends Controller
         ];
 
         PemilikModel::where('id_pemilik', $id)->update($data);
-
-        return redirect('pemilik')->with(['success' => 'data berhasil di ubah']);
+        Alert::success('Success!', 'Data Berhasil di Update');
+        return redirect('/pemilik')->with(['success' => 'data berhasil di ubah']);
     }
 
     /**
@@ -115,6 +108,8 @@ class PemilikController extends Controller
      */
     public function destroy($id)
     {
-        //
+        PemilikModel::where('id_pemilik', $id)->delete();
+
+        return redirect('/pemilik')->with(['success' => 'Data berhasil dihapus']);
     }
 }

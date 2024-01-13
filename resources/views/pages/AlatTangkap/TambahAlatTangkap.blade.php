@@ -5,7 +5,7 @@
 <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg">
     @include('layouts.navigation')
 
-    <form action="" method="post" class="card col-lg-11 ms-lg-5 mt-5  bg-white ">
+    <form action="{{ route('alatTangkap') }}" method="post" class="card col-lg-11 ms-lg-5 mt-5  bg-white ">
         @csrf
 
         <div class="card-body">
@@ -13,14 +13,12 @@
             <div class="row mt-2">
                 <div class="col-lg-12">
                     <div class="form-group">
-                        <label for="nim_mahasiswa">Tambah Alat Tangkap</label>
-                        <input type="text" class="form-control @error('nim_mahasiswa') is-invalid @enderror" value="{{ old('nim_mahasiswa') }}" name="nim_mahasiswa" id="nim_mahasiswa">
+                        <label for="nama_alat_tangkap">Tambah Alat Tangkap</label>
+                        <input type="text" class="form-control" value="" value="" name="nama_alat_tangkap" id="nama_alat_tangkap">
                         <small class="text-danger"></small>
                     </div>
                 </div>
-               
             </div>
-          
         </div>
 
         <div class="card-footer">

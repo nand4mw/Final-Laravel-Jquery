@@ -90,21 +90,22 @@ class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius
                   </td>
                  
                   <td class="align-middle text-center">
-                    <a
-                      href="javascript:;"
-                      class="text-white font-weight-bold text-xs btn btn-secondary"
-                      data-toggle="tooltip"
-                      data-original-title="Edit user"
-                    >
-                      Edit
-                    </a>|
-                    <a
-                    href="javascript:;"
-                    class="text-white font-weight-bold text-xs btn btn-secondary"
-                    data-toggle="tooltip"
-                    data-original-title="Edit user"
-                  >Delete
-                  </a>
+                    <td class="align-middle  text-center d-flex justify-content-center  align-items-center">
+                      <a
+                        href="/edit-dpi/{{ $item->id_dpi }}/"
+                        class="text-white font-weight-bold text-xs btn btn-warning"
+                        data-toggle="tooltip"
+                        data-original-title="Edit user"
+                      >
+                        Edit
+                      </a>|
+  
+                      <form action="{{ route('hapusDpi', ['id' => $item->id_dpi]) }}" class="" method="post" id="form-hapus" >
+                        @csrf
+                        @method('DELETE')
+                        <button type="button" class=" font-weight-bold text-xs btn btn-danger " onclick="hapusData({{ $item->id_dpi }})">Hapus</button>
+                    </form>
+                    </td>
                   </td>
                 </tr>
                 @endforeach
@@ -167,4 +168,30 @@ class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius
 </main>
 
 
+<script>
+  function hapusData(id_dpi) {
+      Swal.fire({
+          title: 'Apakah Anda yakin?',
+          text: 'Data akan dihapus secara permanen!',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya, Hapus!',
+          cancelButtonText: 'Batal'
+      }).then((result) => {
+          if (result.isConfirmed) {
+              // Menambahkan input tersembunyi untuk menyertakan id_pemilik
+              const form = document.getElementById('form-hapus');
+              const inputDpi = document.createElement('input');
+              inputDpi.type = 'hidden';
+              inputDpi.name = 'id_dpi';
+              inputDpi.value = id_dpi;
+              form.appendChild(inputDpi);
+
+              form.submit();
+          }
+      });
+  }
+</script>
 @endsection

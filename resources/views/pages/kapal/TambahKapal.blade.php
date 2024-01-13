@@ -5,7 +5,7 @@
 <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg">
     @include('layouts.navigation')
 
-    <form action="" method="post" class="card col-lg-11 ms-lg-5 mt-5  bg-white ">
+    <form action="" method="post" class="card col-lg-11 ms-lg-5 mt-5  bg-white " enctype="multipart/form-data">
         @csrf
 
         <div class="card-body">
@@ -23,10 +23,9 @@
                         <label for="id_pemilik">Nama Pemilik</label>
                         <select name="id_pemilik" id="id_pemilik" class="form-select @error('id_pemilik') is-invalid @enderror" value="">
                             <option value="" selected>No selected :</option>
-                            @foreach ($kapal as $item)
-                                    <option value="{{ $item->id_pemilik }}"> {{ $item->id_pemilik }}</option>
+                            @foreach ($pemilik as $item)
+                                    <option value="{{ $item->id_pemilik }}"> {{ $item->nama_pemilik }}</option>
                             @endforeach
-                            <option value=""></option>
                         </select>
 
                         <small class="text-danger"></small>
@@ -40,8 +39,8 @@
                         <label for="id_dpi">Nama Dpi</label>
                         <select name="id_dpi" id="id_dpi" class="form-select @error('id_dpi') is-invalid @enderror" value="">
                             <option value="" selected>No selected :</option>
-                            @foreach ($kapal as $item)
-                            <option value="{{ $item->id_dpi }}">{{ $item->id_dpi }}</option>
+                            @foreach ($dpi as $item)
+                            <option value="{{ $item->id_dpi }}">{{ $item->nama_dpi }}</option>
                                 
                             @endforeach
                         </select>
@@ -55,13 +54,11 @@
                         <label for="id_alat_tangkap">Nama Alat Tangkap</label>
                         <select name="id_alat_tangkap" id="id_alat_tangkap" class="form-select @error('') is-invalid @enderror" value="">
                             <option value="">No Selected :</option>
-                            @foreach ($kapal as $item)
-                            <option value="{{ $item->id_alat_tangkap }}">{{ $item->id_alat_tangkap }}</option>
+                            @foreach ($alat as $item)
+                            <option value="{{ old('nama_alat_tangkap') ?? $item->id_alat_tangkap }}">{{ $item->nama_alat_tangkap }}</option>
                             @endforeach
                         </select>
-
                         <small class="text-danger"></small>
-
                     </div>
                 </div>
             </div>

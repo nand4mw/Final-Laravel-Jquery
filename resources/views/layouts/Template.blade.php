@@ -33,6 +33,9 @@
       href="{{ asset('assets/css/soft-ui-dashboard.css?v=1.0.3') }}"
       rel="stylesheet"
     />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+
   </head>
 
   <body class="g-sidenav-show bg-gray-100">
@@ -45,7 +48,8 @@
 
         
             @yield('content')
-        
+    
+            @include('sweetalert::alert')
     @include('layouts.footer')
 
 

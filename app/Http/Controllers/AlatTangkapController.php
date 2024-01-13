@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AlatTangkapModel;
 use Illuminate\Http\Request;
+use App\Models\AlatTangkapModel;
+use Illuminate\Routing\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AlatTangkapController extends Controller
 {
@@ -15,7 +17,7 @@ class AlatTangkapController extends Controller
     public function index()
     {
         $data = [
-            'alat' => AlatTangkapModel::getAllAlatTangkap()->get(),
+            'alat' => AlatTangkapModel::getAlatTangkap()->get(),
             'title' => 'Data Alat Tangkap',
             'no' => 1
         ];
@@ -48,13 +50,12 @@ class AlatTangkapController extends Controller
         $request->validate([
             'nama_alat_tangkap' => 'required',
         ]);
-
         $data = [
-            'nama_alat_tangkap' => $request->nama_alat_tangkap
-
+            'nama_alat_tangkap' => $request->nama_alat_tangkap,
         ];
 
-        AlatTangkapModel::created('$data');
+        AlatTangkapModel::create($data);
+        Alert::success('Success!', 'Data berhasil di tambahkan');
         return redirect('/alat-tangkap')->with(['success' => 'data berhasil di tambahkan']);
     }
 
@@ -77,7 +78,11 @@ class AlatTangkapController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = AlatTangkapModel::where('id_alat_tangkap', $id)->first();
+
+        return view('pages.AlatTangkap.EditAlatTangkap', compact('data'), [
+            'title' => 'Edit Data Alat Tangkap',
+        ]);
     }
 
     /**
@@ -87,9 +92,15 @@ class AlatTangkapController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function editAction(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+            'nama_alat_tangkap' => 'required',
+        ]);
+
+        AlatTangkapModel::where('id_alat_tangkap', $id)->update($data);
+        Alert::success('Success!', 'Data Berhasil di Update');
+        return redirect()->route('editAlatTangkap')->with('success', 'Data berhasil di edit');
     }
 
     /**
@@ -98,8 +109,10 @@ class AlatTangkapController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function hapus($id)
     {
-        //
+        AlatTangkapModel::where('id_alat_tangkap', $id)->delete();
+
+        return redirect('/alat-tangkap')->with('success', 'Data berhasil di hapus');
     }
 }

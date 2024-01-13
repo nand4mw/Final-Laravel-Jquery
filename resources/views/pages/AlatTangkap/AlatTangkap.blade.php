@@ -29,7 +29,7 @@ class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius
                   <th
                     class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                   >
-                    Nama
+                    Nama Alat Tangkap
                   </th>
                   <th
                     class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
@@ -76,21 +76,22 @@ class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius
                   </td>
                   
                   <td class="align-middle text-center">
-                    <a
-                      href="javascript:;"
-                      class="text-white font-weight-bold text-xs btn btn-secondary"
-                      data-toggle="tooltip"
-                      data-original-title="Edit user"
-                    >
-                      Edit
-                    </a>|
-                    <a
-                    href="javascript:;"
-                    class="text-white font-weight-bold text-xs btn btn-secondary"
-                    data-toggle="tooltip"
-                    data-original-title="Edit user"
-                  >Delete
-                  </a>
+                    <td class="align-middle  text-center d-flex justify-content-center  align-items-center">
+                      <a
+                        href="/edit-alat-tangkap/{{ $item->id_alat_tangkap }}/"
+                        class="text-white font-weight-bold text-xs btn btn-warning"
+                        data-toggle="tooltip"
+                        data-original-title="Edit user"
+                      >
+                        Edit
+                      </a>|
+  
+                      <form action="{{ route('hapusAlat', ['id' => $item->id_alat_tangkap]) }}" class="" method="post" id="form-hapus" >
+                        @csrf
+                        @method('DELETE')
+                        <button type="button" class=" font-weight-bold text-xs btn btn-danger " onclick="hapusData({{ $item->id_alat_tangkap }})">Hapus</button>
+                    </form>
+                    </td>
                   </td>
                 </tr>
                 @endforeach
@@ -153,5 +154,30 @@ class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius
 </main>
 
 
+<script>
+  function hapusData(id_alat_tangkap) {
+      Swal.fire({
+          title: 'Apakah Anda yakin?',
+          text: 'Data akan dihapus secara permanen!',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya, Hapus!',
+          cancelButtonText: 'Batal'
+      }).then((result) => {
+          if (result.isConfirmed) {
+              // Menambahkan input tersembunyi untuk menyertakan id_pemilik
+              const form = document.getElementById('form-hapus');
+              const inputIdAlat = document.createElement('input');
+              inputIdAlat.type = 'hidden';
+              inputIdAlat.name = 'id_alat_tangkap';
+              inputIdAlat.value = id_alat_tangkap;
+              form.appendChild(inputIdAlat);
 
+              form.submit();
+          }
+      });
+  }
+</script>
 @endsection

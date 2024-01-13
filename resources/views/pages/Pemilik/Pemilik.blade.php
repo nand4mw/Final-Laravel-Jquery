@@ -93,22 +93,21 @@ class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius
                       >{{ $item->updated_at }}</span
                     >
                   </td>
-                  <td class="align-middle text-center">
+                  <td class="align-middle  text-center d-flex justify-content-center  align-items-center">
                     <a
-                      href="/edit-pemilik/{{ $item->id_pemilik }}"
-                      class="text-white font-weight-bold text-xs btn btn-secondary"
+                      href="/edit-pemilik/{{ $item->id_pemilik }}/edit"
+                      class="text-white font-weight-bold text-xs btn btn-warning"
                       data-toggle="tooltip"
                       data-original-title="Edit user"
                     >
                       Edit
                     </a>|
-                    <a
-                    href="javascript:;"
-                    class="text-white font-weight-bold text-xs btn btn-secondary"
-                    data-toggle="tooltip"
-                    data-original-title="Edit user"
-                  >Delete
-                  </a>
+
+                    <form action="{{ route('hapusPemilik', ['id' => $item->id_pemilik]) }}" class="" method="post" id="form-hapus" >
+                      @csrf
+                      @method('DELETE')
+                      <button type="button" class=" font-weight-bold text-xs btn btn-danger " onclick="hapusData({{ $item->id_pemilik }})">Hapus</button>
+                  </form>
                   </td>
                 </tr>
                 @endforeach
@@ -118,58 +117,36 @@ class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius
         </div>
       </div>
     </div>
-  </div>
- 
-  <footer class="footer pt-3">
-    <div class="container-fluid">
-      <div class="row align-items-center justify-content-lg-between">
-        <div class="col-lg-6 mb-lg-0 mb-4">
-         
-        </div>
-        <div class="col-lg-6">
-          <ul
-            class="nav nav-footer justify-content-center justify-content-lg-end"
-          >
-            <li class="nav-item">
-              <a
-                href="https://www.creative-tim.com"
-                class="nav-link text-muted"
-                target="_blank"
-                >Creative Tim</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                href="https://www.creative-tim.com/presentation"
-                class="nav-link text-muted"
-                target="_blank"
-                >About Us</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                href="https://creative-tim.com/blog"
-                class="nav-link text-muted"
-                target="_blank"
-                >Blog</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                href="https://www.creative-tim.com/license"
-                class="nav-link pe-0 text-muted"
-                target="_blank"
-                >License</a
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>
+  </div> 
 </div>
 </main>
 
+<script>
+  function hapusData(id_pemilik) {
+      Swal.fire({
+          title: 'Apakah Anda yakin?',
+          text: 'Data akan dihapus secara permanen!',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya, Hapus!',
+          cancelButtonText: 'Batal'
+      }).then((result) => {
+          if (result.isConfirmed) {
+              // Menambahkan input tersembunyi untuk menyertakan id_pemilik
+              const form = document.getElementById('form-hapus');
+              const inputIdPemilik = document.createElement('input');
+              inputIdPemilik.type = 'hidden';
+              inputIdPemilik.name = 'id_pemilik';
+              inputIdPemilik.value = id_pemilik;
+              form.appendChild(inputIdPemilik);
 
+              form.submit();
+          }
+      });
+  }
+</script>
 
 @endsection
+

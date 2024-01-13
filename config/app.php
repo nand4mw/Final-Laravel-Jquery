@@ -153,6 +153,12 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
+    'providers' => [
+        // ...
+        Barryvdh\DomPDF\ServiceProvider::class,
+    ],
+
+
 
     'providers' => [
 

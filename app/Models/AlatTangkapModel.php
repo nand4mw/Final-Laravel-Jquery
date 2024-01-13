@@ -9,10 +9,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class AlatTangkapModel extends Model
 {
     use HasFactory;
-    protected $table = 'alatTangkap';
+    protected $table = 'alat_tangkap';
     protected $guarded = [];
 
-    public static function getAllAlatTangkap()
+    public static function getAlatTangkap()
     {
         $data = DB::table('alat_tangkap');
         return $data;

@@ -13,14 +13,14 @@
             <div class="row mt-2">
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <label for="nama_dpi">Nama Dpi</label>
+                        <label for="nama_dpi">Nama Daerah Penangkapan Ikan</label>
                         <input type="text" class="form-control @error('nama_dpi') is-invalid @enderror" value="{{ old('nama_dpi') }}" name="nama_dpi" id="nama_dpi">
                         <small class="text-danger"></small>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <label for="luas">Luas </label>
+                        <label for="luas">Luas Laut </label>
                         <input type="text" class="form-control @error('luas') is-invalid @enderror" value="{{ old('luas') }}" name="luas" id="luas">
 
                         <small class="text-danger"></small>
@@ -28,7 +28,6 @@
                     </div>
                 </div>           
             </div>
-            
         </div>
 
         <div class="card-footer">
@@ -37,5 +36,8 @@
         </div>
     </form>
 </main>
+
+
+
 
 @endsection

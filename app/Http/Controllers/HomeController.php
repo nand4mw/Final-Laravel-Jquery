@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AlatTangkapModel;
+use App\Models\DpiModel;
+use App\Models\KapalModel;
+use App\Models\PemilikModel;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,9 +25,27 @@ class HomeController extends Controller
     }
 
 
+    public function dashboard()
+    {
+        $total_alat = AlatTangkapModel::count();
+        $total_dpi = DpiModel::count();
+        $total_kapal = KapalModel::count();
+        $total_pemilik = PemilikModel::count();
+
+
+        return view('home', compact(
+            'total_alat',
+            'total_dpi',
+            'total_kapal',
+            'total_pemilik',
+
+        ),  [
+            'title' => 'Dashboard'
+        ]);
+    }
+
     public function queryAll()
     {
-        
     }
 
     /**

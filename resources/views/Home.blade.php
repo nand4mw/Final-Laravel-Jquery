@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <main
 class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg"
 >
@@ -21,7 +20,6 @@ class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius
 Admin                </p>
                 <p class=" mb-0 " style="font-size: 13px">
                   AnandA Maulana Wahyudi
-                 
                 </p>
               </div>
             </div>
@@ -49,9 +47,9 @@ Admin                </p>
                   Total Daerah Penangkapan
                 </p>
                 <h5 class="font-weight-bolder mb-0">
-                  2,300
+                  {{ $total_dpi }}
                   <span class="text-success text-sm font-weight-bolder"
-                    >+3%</span
+                    >+</span
                   >
                 </h5>
               </div>
@@ -80,9 +78,9 @@ Admin                </p>
                   Totak Pemilik Kapal
                 </p>
                 <h5 class="font-weight-bolder mb-0">
-                  +3,462
+                  {{ $total_pemilik }}
                   <span class="text-danger text-sm font-weight-bolder"
-                    >-2%</span
+                    >+</span
                   >
                 </h5>
               </div>
@@ -111,9 +109,9 @@ Admin                </p>
                   Alat Tangkap
                 </p>
                 <h5 class="font-weight-bolder mb-0">
-                  $103,430
+                  {{ $total_alat }}
                   <span class="text-success text-sm font-weight-bolder"
-                    >+5%</span
+                    >+</span
                   >
                 </h5>
               </div>

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\DpiModel;
-use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
+use Dflydev\DotAccessData\Data;
+use Illuminate\Routing\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
+use Symfony\Component\HttpKernel\Debug\VirtualRequestStack;
 
 class DpiController extends Controller
 {
@@ -59,7 +62,7 @@ class DpiController extends Controller
 
 
         DpiModel::create($data);
-
+        Alert::success('Success!', 'Data berhasil di tambahkan');
         return redirect('/dpi')->with(['success' => 'data berhasil di tambahkan']);
     }
 
@@ -69,10 +72,10 @@ class DpiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+    // public function show($id)
+    // {
+    //     return view('pages.Dpi.EditDpi');
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -82,7 +85,10 @@ class DpiController extends Controller
      */
     public function edit($id)
     {
-        //
+        $get = DpiModel::where('id_dpi', $id)->first();
+        return view('pages.Dpi.EditDpi', compact('get'), [
+            'title' => 'Edit Data Daearah Penangkapan Ikan',
+        ]);
     }
 
     /**
@@ -92,9 +98,18 @@ class DpiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function editAction(Request $request, $id)
     {
-        //
+        $data = $request->validate(
+            [
+                'nama_dpi' => 'required',
+                'luas' => 'required',
+            ]
+        );
+
+        DpiModel::where('id_dpi', $id)->update($data);
+        Alert::success('Success!', 'Data Berhasil di Update');
+        return redirect('/dpi')->with('success', 'Data Berhasil di Edit');
     }
 
     /**
@@ -103,8 +118,10 @@ class DpiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function hapus($id)
     {
-        //
+        DpiModel::where('id_dpi', $id)->delete();
+
+        return redirect('/dpi')->with('success', 'Data Berhasil di Hapus');
     }
 }

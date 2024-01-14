@@ -41,9 +41,6 @@
   <body class="g-sidenav-show bg-gray-100">
 
 
-
-
-
     @include('layouts.header')
 
         

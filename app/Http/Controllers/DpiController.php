@@ -60,7 +60,6 @@ class DpiController extends Controller
         ];
 
 
-
         DpiModel::create($data);
         Alert::success('Success!', 'Data berhasil di tambahkan');
         return redirect('/dpi')->with(['success' => 'data berhasil di tambahkan']);

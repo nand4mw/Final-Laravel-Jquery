@@ -23,7 +23,7 @@
                 <div class="d-flex">
                   <div style="width: 210px; height: 100px; margin-right: 20px;  overflow: hidden;">
                     @if ($item->foto_kapal)
-                    <img src="{{ asset('storage/'. $item->foto_kapal) }}" style="width: 100%; height: 100%; object-fit: cover;" alt="..." class="rounded rounded-3">
+                    <img src="{{ asset('storage/'.$item->foto_kapal) }}" style="width: 100%; height: 100%; object-fit: cover;" alt="..." class="rounded rounded-3">
                     @endif
                   </div>
                   <div class="d-flex  flex-column">
